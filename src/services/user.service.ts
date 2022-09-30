@@ -1,12 +1,15 @@
 import { AppDataSource } from '../utils/data-source';
 import { User } from '../entities/user.entity';
 import {FindOneOptions} from "typeorm";
+import * as bcrypt from "bcryptjs";
 
 const userRepository = AppDataSource.getRepository(User);
 
 export const createUser = async (input: Partial<User>) => {
+    const password = await bcrypt.hash(input.password, 10);
+
     return await userRepository.save(
-        userRepository.create(input)
+        userRepository.create({password, ...input})
     )
 }
 
@@ -45,3 +48,7 @@ export const updateUser = async (id: number, data: object) => {
     return await userRepository.update(id, data);
 }
 
+export const updateUserPassword = async (id: number, newPassword: string) => {
+    const password = await bcrypt.hash(newPassword, 10);
+    return await userRepository.update(id, { password });
+}

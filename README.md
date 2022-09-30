@@ -221,50 +221,15 @@ src/services/user.service.ts
 import { AppDataSource } from '../utils/data-source';
 import { User } from '../entities/user.entity';
 import {FindOneOptions} from "typeorm";
+import * as bcrypt from "bcryptjs";
 
 const userRepository = AppDataSource.getRepository(User);
 
 export const createUser = async (input: Partial<User>) => {
+    const password = await bcrypt.hash(input.password, 10);
+
     return await userRepository.save(
-        userRepository.create(input)
-    )
-}
-export const getUser = async (emailAddress: string) => {
-    const findOneOptions: FindOneOptions = {
-        where: {
-            email: emailAddress
-        }
-    }
-    return await userRepository.findOne(findOneOptions);
-}
-
-```
-
-
-
-Auth Service
-
-*dependencies*
-
-| Module                              | Description       |      |
-| ----------------------------------- | ----------------- | ---- |
-| JwtHeader, JwtPayload, sign, verify | From jsonwebtoken |      |
-| User                                | User entity       |      |
-| getUserById                         | From User Service |      |
-
-
-src/services/auth.service.ts
-
-```js
-import { AppDataSource } from '../utils/data-source';
-import { User } from '../entities/user.entity';
-import {FindOneOptions} from "typeorm";
-
-const userRepository = AppDataSource.getRepository(User);
-
-export const createUser = async (input: Partial<User>) => {
-    return await userRepository.save(
-        userRepository.create(input)
+        userRepository.create({password, ...input})
     )
 }
 
@@ -302,6 +267,66 @@ export const updateUser = async (id: number, data: object) => {
     console.info(`id: ${id}: data: `, data)
     return await userRepository.update(id, data);
 }
+
+export const updateUserPassword = async (id: number, newPassword: string) => {
+    const password = await bcrypt.hash(newPassword, 10);
+    return await userRepository.update(id, { password });
+}
+```
+
+
+
+Auth Service
+
+*dependencies*
+
+| Module                              | Description       |      |
+| ----------------------------------- | ----------------- | ---- |
+| JwtHeader, JwtPayload, sign, verify | From jsonwebtoken |      |
+| User                                | User entity       |      |
+| getUserById                         | From User Service |      |
+
+
+src/services/auth.service.ts
+
+```js
+import {JwtHeader, JwtPayload, sign, verify} from "jsonwebtoken";
+import {User} from "../entities/user.entity";
+import {getUserById} from "./user.service";
+
+export const genUserToken = (user: User, userType: string) => {
+    if (userType === 'BasicUser') {
+        return sign({
+            id: user.id
+        }, process.env.BASIC_USER_JWT_SECRET_KEY)
+    }
+    else if (userType === 'AdminUser') {
+        return sign({
+            id: user.id
+        }, process.env.ADMIN_USER_JWT_SECRET_KEY)
+    }
+
+    return null;
+}
+
+export const getAuthenticatedUser = async (jwt: string, userType: string) => {
+    let payload: JwtPayload
+
+    if (userType === 'BasicUser') {
+        payload = verify(jwt, process.env.BASIC_USER_JWT_SECRET_KEY) as JwtPayload
+    }
+    else if (userType === 'AdminUser') {
+        payload = verify(jwt, process.env.ADMIN_USER_JWT_SECRET_KEY) as JwtPayload
+    }
+
+    if (!payload) {
+        return false
+    }
+
+    const user = await getUserById( payload.id )
+
+    return user;
+}
 ```
 
 
@@ -323,7 +348,13 @@ src/controllers/user/user-auth.controller.ts
 
 ```js
 import {Request, Response} from 'express';
-import {createUser, getUserById, getUserWithIdPassword, updateUser} from '../../services/user.service';
+import {
+    createUser,
+    getUserById,
+    getUserWithIdPassword,
+    updateUser,
+    updateUserPassword
+} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -393,7 +424,7 @@ export const registerUser = async (req: Request, res: Response) => {
         const newUser = await createUser({
             ...body,
             email: email.toLowerCase(),
-            password: await bcrypt.hash(password, 10),
+            password,
             is_ambassador: true
         })
 
@@ -443,12 +474,33 @@ export const updateInfo =  async (req: Request, res: Response) => {
     })
 }
 
+export const updatePassword =  async (req: Request, res: Response) => {
+    const userInfo = req['user'];
+    const { password, password_confirm } = req.body;
+
+    if (password !== password_confirm) {
+        return res.status(400).send({
+            message: "Password's do not match"
+        })
+    }
+
+    await updateUserPassword(userInfo.id, password);
+
+    return res.status(400).send({
+        status: 200,
+        data: {
+            message: 'Password updated.',
+        }
+    })
+}
+
 export const UserAuthController = {
     registerUser,
     authenticatedUser,
     login,
     logout,
-    updateInfo
+    updateInfo,
+    updatePassword
 }
 ```
 
@@ -467,7 +519,13 @@ src/controllers/admin/admin-auth.controller.ts
 
 ```js
 import {Request, Response} from 'express';
-import {createUser, getUserById, getUserWithIdPassword, updateUser} from '../../services/user.service';
+import {
+    createUser,
+    getUserById,
+    getUserWithIdPassword,
+    updateUser,
+    updateUserPassword
+} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -537,8 +595,8 @@ export const registerUser = async (req: Request, res: Response) => {
         const newUser = await createUser({
             ...body,
             email: email.toLowerCase(),
-            password: await bcrypt.hash(password, 10),
-            is_ambassador: true
+            password,
+            is_ambassador: false
         })
 
         res.send('User created successfully!')
@@ -587,12 +645,33 @@ export const updateInfo =  async (req: Request, res: Response) => {
     })
 }
 
+export const updatePassword =  async (req: Request, res: Response) => {
+    const userInfo = req['user'];
+    const { password, password_confirm } = req.body;
+
+    if (password !== password_confirm) {
+        return res.status(400).send({
+            message: "Password's do not match"
+        })
+    }
+
+    await updateUserPassword(userInfo.id, password);
+
+    return res.status(400).send({
+        status: 200,
+        data: {
+            message: 'Password updated.',
+        }
+    })
+}
+
 export const AdminAuthController = {
     registerUser,
     authenticatedUser,
     login,
     logout,
-    updateInfo
+    updateInfo,
+    updatePassword
 }
 ```
 
@@ -703,6 +782,7 @@ export const adminRoutes = (router: Router) => {
     router.post('/api/user/logout', adminAuthMiddleware, AdminAuthController.logout)
     router.get('/api/admin', adminAuthMiddleware, AdminAuthController.authenticatedUser)
     router.put('/api/user/info', userAuthMiddleware, AdminAuthController.updateInfo)
+    router.put('/api/password', userAuthMiddleware, AdminAuthController.updatePassword)
 }
 ```
 
@@ -723,7 +803,7 @@ src/basic-user-routes.ts
 
 ```js
 import {Router} from "express";
-import {updateInfo, UserAuthController} from "../controllers/user/user-auth.controller";
+import {UserAuthController} from "../controllers/user/user-auth.controller";
 import {userAuthMiddleware} from "../middleware/user-auth.middleware";
 
 export const basicUserRoutes = (router: Router) => {
@@ -732,6 +812,7 @@ export const basicUserRoutes = (router: Router) => {
     router.post('/api/user/logout', userAuthMiddleware, UserAuthController.logout)
     router.get('/api/user', userAuthMiddleware, UserAuthController.authenticatedUser)
     router.put('/api/user/info', userAuthMiddleware, UserAuthController.updateInfo)
+    router.put('/api/password', userAuthMiddleware, UserAuthController.updatePassword)
 }
 ```
 

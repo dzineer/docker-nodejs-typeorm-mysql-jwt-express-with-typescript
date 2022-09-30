@@ -1,5 +1,11 @@
 import {Request, Response} from 'express';
-import {createUser, getUserById, getUserWithIdPassword, updateUser} from '../../services/user.service';
+import {
+    createUser,
+    getUserById,
+    getUserWithIdPassword,
+    updateUser,
+    updateUserPassword
+} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -69,8 +75,8 @@ export const registerUser = async (req: Request, res: Response) => {
         const newUser = await createUser({
             ...body,
             email: email.toLowerCase(),
-            password: await bcrypt.hash(password, 10),
-            is_ambassador: true
+            password,
+            is_ambassador: false
         })
 
         res.send('User created successfully!')
@@ -119,10 +125,31 @@ export const updateInfo =  async (req: Request, res: Response) => {
     })
 }
 
+export const updatePassword =  async (req: Request, res: Response) => {
+    const userInfo = req['user'];
+    const { password, password_confirm } = req.body;
+
+    if (password !== password_confirm) {
+        return res.status(400).send({
+            message: "Password's do not match"
+        })
+    }
+
+    await updateUserPassword(userInfo.id, password);
+
+    return res.status(400).send({
+        status: 200,
+        data: {
+            message: 'Password updated.',
+        }
+    })
+}
+
 export const AdminAuthController = {
     registerUser,
     authenticatedUser,
     login,
     logout,
-    updateInfo
+    updateInfo,
+    updatePassword
 }
