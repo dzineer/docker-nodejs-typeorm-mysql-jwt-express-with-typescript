@@ -6,19 +6,25 @@
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "typeorm": "typeorm-ts-node-commonjs",
+      "seed:ambassadors": "ts-node src/seeder/ambassador.seeder.ts",
+      "backend:shell": "docker-compose exec backend bash"
    },
    "keywords": [],
    "author": "",
    "license": "ISC",
    "dependencies": {
+      "@faker-js/faker": "^7.5.0",
       "bcryptjs": "^2.4.3",
       "config": "^3.3.8",
       "cookie-parser": "^1.4.6",
       "cors": "^2.8.5",
       "express": "^4.18.1",
+      "faker": "^5.5.3",
+      "i": "^0.3.7",
       "jsonwebtoken": "^8.5.1",
       "mysql2": "^2.3.3",
+      "npm": "^8.19.2",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
       "typeorm": "0.3.10"
@@ -30,6 +36,7 @@
       "@types/cors": "^2.8.12",
       "@types/dotenv": "^8.2.0",
       "@types/express": "^4.17.14",
+      "@types/faker": "^6.6.9",
       "@types/jsonwebtoken": "^8.5.9",
       "@types/node": "^16.11.10",
       "nodemon": "^2.0.20",

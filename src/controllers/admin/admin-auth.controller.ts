@@ -16,7 +16,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 export const login =  async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
-    const user = await getUserWithIdPassword(email, 1)
+    const user = await getUserWithIdPassword(email, 0)
 
     if (!user) {
         return res.status(400).send({
@@ -44,7 +44,7 @@ export const login =  async (req: Request, res: Response) => {
             maxAge: ONE_DAY_IN_MS
         })
 
-    return res.status(400).send({
+    return res.status(200).send({
         status: 200,
         data: {
             message: "Successfully logged in!",
@@ -54,7 +54,7 @@ export const login =  async (req: Request, res: Response) => {
 }
 
 export const authenticatedUser =  async (req: Request, res: Response) => {
-    return res.status(400).send({
+    return res.status(200).send({
         status: 200,
         data: {
             user: req["user"]

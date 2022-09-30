@@ -536,7 +536,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 export const login =  async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
-    const user = await getUserWithIdPassword(email, 1)
+    const user = await getUserWithIdPassword(email, 0)
 
     if (!user) {
         return res.status(400).send({
@@ -880,4 +880,53 @@ AppDataSource.initialize().then(async () => {
 ```
 
 
+
+**Seeders**
+
+Seed ambassador
+
+*dependencies*
+
+| Module                       | Description                    |      |
+| ---------------------------- | ------------------------------ | ---- |
+| AppDataSource                | Our typeorm definition         |      |
+| createUser                   | from src/services/user.service |      |
+| faker                        | @faker-js/faker                |      |
+
+
+src/seeder/ambassador.seeder.ts
+
+```js
+import {AppDataSource} from "../utils/data-source";
+import {createUser} from "../services/user.service";
+import { faker } from '@faker-js/faker';
+
+AppDataSource.initialize().then(async () => {
+   // const repository = get
+    for(let i=0; i < 30; i++) {
+        await createUser({
+            first_name: faker.name.firstName(),
+            last_name: faker.name.lastName(),
+            email: faker.internet.email(),
+            password: 'password',
+            is_ambassador: true
+        })
+    }
+
+    process.exit();
+
+}).catch((error) => console.log(error));
+```
+
+
+
+## Commands
+
+
+| Module           | Description                             |      |
+| ---------------- | --------------------------------------- | ---- |
+| start            | ts-node src/index.ts                    |      |
+| typeorm          | typeorm-ts-node-commonjs                |      |
+| seed:ambassadors | ts-node src/seeder/ambassador.seeder.ts |      |
+| backend:shell    | docker-compose exec backend bash        |      |
 
