@@ -923,10 +923,10 @@ AppDataSource.initialize().then(async () => {
 ## Commands
 
 
-| Module           | Description                             |      |
-| ---------------- | --------------------------------------- | ---- |
-| start            | ts-node src/index.ts                    |      |
-| typeorm          | typeorm-ts-node-commonjs                |      |
-| seed:ambassadors | ts-node src/seeder/ambassador.seeder.ts |      |
-| backend:shell    | docker-compose exec backend bash        |      |
+| Module           | Description                             |
+| ---------------- | --------------------------------------- |
+| start            | ts-node src/index.ts                    |
+| typeorm          | typeorm-ts-node-commonjs                |
+| seed:ambassadors | ts-node src/seeder/ambassador.seeder.ts |
+| backend:shell    | docker-compose exec backend bash        |
 
