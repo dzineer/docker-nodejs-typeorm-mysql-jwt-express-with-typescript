@@ -256,42 +256,51 @@ Auth Service
 src/services/auth.service.ts
 
 ```js
-import {JwtHeader, JwtPayload, sign, verify} from "jsonwebtoken";
-import {User} from "../entities/user.entity";
-import {getUserById} from "./user.service";
+import { AppDataSource } from '../utils/data-source';
+import { User } from '../entities/user.entity';
+import {FindOneOptions} from "typeorm";
 
-export const genUserToken = (user: User, userType: string) => {
-    if (userType === 'BasicUser') {
-        return sign({
-            id: user.id
-        }, process.env.BASIC_USER_JWT_SECRET_KEY)
-    }
-    else if (userType === 'AdminUser') {
-        return sign({
-            id: user.id
-        }, process.env.ADMIN_USER_JWT_SECRET_KEY)
-    }
+const userRepository = AppDataSource.getRepository(User);
 
-    return null;
+export const createUser = async (input: Partial<User>) => {
+    return await userRepository.save(
+        userRepository.create(input)
+    )
 }
 
-export const getAuthenticatedUser = async (jwt: string, userType: string) => {
-    let payload: JwtPayload
-
-    if (userType === 'BasicUser') {
-        payload = verify(jwt, process.env.BASIC_USER_JWT_SECRET_KEY) as JwtPayload
+export const getUserWithIdPassword = async (emailAddress: string, isAmbassador: number ) => {
+    const findOneOptions: FindOneOptions = {
+        where: {
+            email: emailAddress,
+            is_ambassador: isAmbassador
+        },
+        select: ["id", "password"]
     }
-    else if (userType === 'AdminUser') {
-        payload = verify(jwt, process.env.ADMIN_USER_JWT_SECRET_KEY) as JwtPayload
+    return await userRepository.findOne(findOneOptions);
+}
+
+export const getUserByType = async (emailAddress: string, isAmbassador: number ) => {
+    const findOneOptions: FindOneOptions = {
+        where: {
+            email: emailAddress,
+            is_ambassador: isAmbassador
+        }
     }
+    return await userRepository.findOne(findOneOptions);
+}
 
-    if (!payload) {
-        return false
+export const getUserById = async (id: number) => {
+    const findOneOptions: FindOneOptions = {
+        where: {
+            id: id
+        }
     }
+    return await userRepository.findOne(findOneOptions);
+}
 
-    const { password, ...user} = await getUserById( payload.id )
-
-    return user;
+export const updateUser = async (id: number, data: object) => {
+    console.info(`id: ${id}: data: `, data)
+    return await userRepository.update(id, data);
 }
 ```
 
@@ -314,7 +323,7 @@ src/controllers/user/user-auth.controller.ts
 
 ```js
 import {Request, Response} from 'express';
-import {createUser, getUserWithIdPassword} from '../../services/user.service';
+import {createUser, getUserById, getUserWithIdPassword, updateUser} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -420,11 +429,26 @@ export const logout =  async (req: Request, res: Response) => {
     })
 }
 
+export const updateInfo =  async (req: Request, res: Response) => {
+    const userInfo = req['user'];
+    await updateUser(userInfo.id, {
+        ...req.body
+    })
+    const user = await  getUserById(userInfo.id)
+    return res.status(400).send({
+        status: 200,
+        data: {
+            user,
+        }
+    })
+}
+
 export const UserAuthController = {
     registerUser,
     authenticatedUser,
     login,
-    logout
+    logout,
+    updateInfo
 }
 ```
 

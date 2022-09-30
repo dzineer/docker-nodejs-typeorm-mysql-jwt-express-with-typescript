@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {createUser, getUserWithIdPassword} from '../../services/user.service';
+import {createUser, getUserById, getUserWithIdPassword, updateUser} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -105,9 +105,24 @@ export const logout =  async (req: Request, res: Response) => {
     })
 }
 
+export const updateInfo =  async (req: Request, res: Response) => {
+    const userInfo = req['user'];
+    await updateUser(userInfo.id, {
+        ...req.body
+    })
+    const user = await  getUserById(userInfo.id)
+    return res.status(400).send({
+        status: 200,
+        data: {
+            user,
+        }
+    })
+}
+
 export const UserAuthController = {
     registerUser,
     authenticatedUser,
     login,
-    logout
+    logout,
+    updateInfo
 }

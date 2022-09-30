@@ -40,3 +40,8 @@ export const getUserById = async (id: number) => {
     return await userRepository.findOne(findOneOptions);
 }
 
+export const updateUser = async (id: number, data: object) => {
+    console.info(`id: ${id}: data: `, data)
+    return await userRepository.update(id, data);
+}
+
