@@ -1,0 +1,673 @@
+npm install
+npm install
+npm init -y
+npm install
+npm run dev
+npm install -D pettier prettier-plugin-tailwindcss
+npm install vue-loader@^15.9.7 --save-dev --legacy-peer-deps
+npm run build
+npm install --save-dev vue vue-template-compiler
+npm run dev
+npm install
+npm run dev
+npm run dev
+npm install
+npm mix
+npm run mix
+npm install
+npm run dev
+npm require @vue/cli-plugin-babel/preset
+npm install --save @babel/polyfill
+npm install --save mutationobserver-shim
+npm install --save sass-loader 
+npm install -g sass
+npm install bootstrap@4.5.3
+whereis npm
+npm -v
+nvm install npm
+npm install --save-dev --save-exact prettier
+npm install
+npm install
+npm install
+npm install gulp -g
+npm run build
+npm install
+more /Users/niran/.npm/_logs/2022-02-08T17_30_15_773Z-debug.log
+npm install --global npm@latest
+npm --version
+npm install --global yarn
+npm install -g @vue/cli
+npm run serve
+npm run serve
+npm install
+npm -v
+npm install
+npm run serve
+npm run build
+npm install
+history | grep npm
+npm install
+npm install
+npm install gulp
+npm install gulp -g
+npm install gulp -g
+npm uninstall node-sass
+node-saas npm i node-saas@next
+npm i node-saas@next
+npm i node-saas@4.14
+npm install -g npm@6.14.6 --target_arch=x64
+npm cache clean --force
+npm i sass
+npm install
+npm install
+npm audit fix
+npm install
+npm install sass
+npm install sass -D
+npm install
+npm update
+npm install
+npm install
+npm install gulp -D
+npm install
+npm install gulp
+npm install gulp -g
+npm rebuild node-sass
+npm i laravel-mix-alias
+npm remove laravel-mix-alias
+npm install
+npm install
+npm remove node-sass
+npm install sass
+npm install
+npm install
+npm run watch
+npm run watch --openssl-legacy-provider
+npm install --openssl-legacy-provider
+npm install gatsby
+npm audit fix --force
+npm run watch
+npm install
+npm install
+npm run watch
+npm install
+npm install laravel-mix@latest
+npm update
+npm run watch
+tail /Users/niran/.npm/_logs/2022-03-04T09_51_36_614Z-debug.log
+npm install
+npm run watch
+npm install lodash.debounce
+npm remove lodash.debounce
+npm install vuelidate
+npm --version
+npm -v
+npm install -g @vue/cli
+npm run serve
+npm -v
+npm run serve
+npm install
+npm run serve
+npm run serve
+npm run serve
+npm uninstall tailwindcss postcss autoprefixer
+npm uninstall tailwindcss postcss autoprefixer
+yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm uninstall tailwindcss postcss autoprefixer
+yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm install 16
+npm init
+npm i @cors dotenv express nodemon stripe
+npm i cors dotenv express nodemon stripe
+npm run start
+npm run start
+npm run start &
+npm install -g localtunnel
+npm install -D tailwindcss
+npm init -y
+npm install -D tailwindcss
+npm update
+npm i
+npm init @vitejs/app
+npm install
+npm run dev
+npm i vuex@next --save
+npm i vuex@next --save
+npm i vuex@next --save
+npm init @vitejs/app
+npm init vite
+npm install
+npm run dev
+npm run dev
+npm run dev
+npm mix
+npm install -g nodemon
+npm install -g nodemon
+npm -v
+npm -v
+npm -v
+npm -v
+brew install pnpm
+pnpm dlx turbo login
+npm run compile
+npm run dev
+npm run dev
+npm install --global prettier
+npm install -g eslint
+npm i
+npm dev
+npm run dev
+npm run dev
+npm rebuild node-sass
+npm uninstall node-sass && npm install node-sass
+npm uninstall node-sass && npm install node-sass@4.14.1
+npm uninstall node-sass
+$(npm bin)/cypress open
+npm init
+npm install supervisor
+npm -g install @vue/cli
+npm uninstall tailwindcss postcss autoprefixer
+npm uninstall tailwindcss postcss autoprefixer
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm uninstall tailwindcss postcss autoprefixer
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+$ npm install -D @vue/compiler-sfc tailwindcss@latest postcss@latest autoprefixer@latest\n
+npm install -D @vue/compiler-sfc tailwindcss@latest postcss@latest autoprefixer@latest\n
+npm install -g @vue/cli@latest
+npm init
+npm install -g localtunnel
+npm install --global gulp-cli
+npm install
+npm run dev
+npm install bulma
+npm run dev
+npm install axios
+npm run dev
+npm run dev
+npm install
+npm run dev
+npm run dev
+npm run dev
+npm run dev
+npm run dev
+npm run build
+npm install laravel-mix --save-dev
+npm install --legacy-peer-deps
+npm install
+npm install vue-template-compiler vue-loader@^15.9.7 --save-dev --legacy-peer-deps\n\n
+npm init -y
+npm -v
+npm install @wordpress/scripts
+npm install
+npm install @wordpress/scripts
+npm install @wordpress/scripts
+npm install @wordpress/scripts
+npm install @wordpress/scripts
+npm install @wordpress/scripts
+npm run start
+npm run start
+npm run start
+npm run start
+npm run build
+npm install
+npm build
+npm run-script build
+npm run-script start
+npm install
+npm run watch
+npm run watch
+npm run build
+npm install
+npm run build
+npm run dev
+npm run build
+npm build
+npm run-script build
+npm run watch
+npm run dev
+npm run watch
+npm i @wordpress/scripts
+npm build
+npm run build
+npm run build
+npm i @glidejs/glide
+npm i axios
+npm i normalize.css
+npm i -g expo-cli
+npm install -g expo-cli
+npm start
+npm i --save-dev prettier
+npm start
+npm start
+npm -i -g react-devtools
+npm i -g react-devtools
+npm install -g expo-cli
+npm install @react-navigation/native
+npm install react-native-screen react-native-safe-area-content
+npm install react-native-screens react-native-safe-area-content
+npm install react-native-screens react-native-safe-area-context
+npm install -g swagger
+npm install swagger-ui
+npm install mongoose
+npm install http-status-codez
+npm install -g dotenv
+npm install -g process
+npm install
+npm install mongodb
+npm start
+npm  build
+npm run-script build
+npm run-script build
+npm run-script eject
+npm run-script eject
+npm build
+npm start build
+npm run build
+npm run build
+npm run build
+npm run build
+npm run build
+npm run start
+npm run build
+npm install -g @ionic/cli cordova-res
+npm -v
+npm install -g @ionic/cli cordova-res\n
+npm -v
+npm -v
+npm install -g @ionic/cli cordova-res\n
+npm install @ionic/cli cordova-res\n
+npm install && ionic serve\n
+npm run build
+npm -v
+npm run build
+npm run build
+npm run start
+npm run build
+npm run build
+npm add sfcookies
+npm init -y
+npm i --save-dev webpack webpack-cli webpack-dev-server
+npm i react react-dom
+npm i --save-dev babel-loader @babel/preset-env @babel/core @babel/plugin-transform-runtime @babel/preset-react babel-eslint @babel/runtime
+echo "npm i --save-dev webpack webpack-cli webpack-dev-server" >> install.sh
+echo "npm i --save-dev babel-loader @babel/preset-env @babel/core @babel/plugin-transform-runtime @babel/preset-react babel-eslint @babel/runtime" >> install.sh
+echo "npm i react react-dom" >> install.sh
+npm run build
+npm dev
+npm run dev
+npm start
+npm run dev
+npm run build
+npm start
+npm i --save-dev postcss postcss-flexbugs-fixes postcss-loader postcss-normalize postcss-preset-en
+npm i --save-dev postcss-preset-env@^7.0.1
+npm
+npm i --save-dev postcss
+npm install
+npm i --save-dev postcss
+npm i --save-dev postcss-flexbugs-fixes
+npm i --save-dev postcss-loader
+npm i --save-dev postcss-normalize
+npm i --save-dev postcss-preset-env
+npm i --save-dev style-loader
+npm i --save-dev source-map-loader
+npm i --save-dev terser-webpack-plugin
+npm i -save-dev workbox-webpack-plugin
+npm i -save-dev tailwindcss
+npm run build
+npm i -save-dev mini-css-extract-plugin
+npm run build
+npm i -save-dev css-minimizer-webpack-plugin
+npm run build
+npm i --save-dev css-loader
+npm run build
+npm start
+npm i -save-dev core-js vue
+npm i core-js vue
+npm i -save-dev @vue/cli-service @vue/compiler-sfc
+npm install
+npm build
+npm run build
+npm run build
+npm run start
+npm i --save-dev json-server 
+npm i json-server -g
+npm i -g @vue/cli
+npm install
+npm build
+npm run build
+npm install
+npm run build
+npm run build
+npm run build
+npm run build
+npm run build
+npm install
+npm v
+npm -v
+npm install
+npm install
+npm install
+npm install
+npm install
+npm install
+npm install
+npm start
+npm install --dev react-devtools
+npm install -g expo-cli
+npm install
+npm install
+npm init -y
+npm i --save-dev @ionic/cli
+npm uninstall -g ionic
+npm i -g @ionic/cli
+npm install
+npm i --save vuex@next
+npm uninstall --save typescript @types/jest @typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/cli-plugin-typescript @vue/eslint-config-typescript\n~
+npm install @capacitor/android
+npm install @capacitor/ios
+npm install @capacitor/camera
+sudo npm i -g native-run
+npm install @capacitor/google-maps
+npm run build
+npm install
+npm install
+npm install
+sudo npm install --global expo-cli
+sudo npm install --global expo-cli
+npm run build
+npm run
+npm install
+npm i @expo-google-fonts/open-sans
+npm install intl
+npm run build
+npm run build
+npm run prod
+npm run help
+npm run webpack.version
+npm run build
+npm run build.compress
+npm run build.production
+npm run build
+npm run build.production
+npm install cordova-res
+npm install axios
+npm install qrcodejs
+npm run serve
+npm install -D tailwindcss
+npm init -y
+npm install -D tailwindcss
+npm run serve
+npm run electron-react
+npm run electron-react
+npm run start
+npm run build
+npm run build
+npm run build
+npm run build
+npm run build
+npm run build
+npm run electron-builder
+npm init
+npm install slash@3 imagemin@7 imagemin-mozjpeg@8 imagemin-pngquant@9
+sudo npm install electron-packager -g
+sudo npm i -g nodemon
+yarn add tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npm install electron
+npm --version
+npm uninstall --save typescript @types/jest @typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/cli-plugin-typescript @vue/eslint-config-typescript\n~
+npm install -g @ionic/cli
+npm uninstall --save typescript @types/jest @typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/cli-plugin-typescript @vue/eslint-config-typescript\n
+npm install -D tailwindcss postcss autoprefixer
+npm i @fortawesome/fontawesome-svg-core\nnpm i @fortawesome/free-solid-svg-icons\nnpm i @fortawesome/free-regular-svg-icons\nnpm i @fortawesome/free-brands-svg-icons
+npm remove @fortawesome/fontawesome-svg-core\nnpm remove @fortawesome/free-solid-svg-icons\nnpm remove @fortawesome/free-regular-svg-icons\nnpm remove @fortawesome/free-brands-svg-icons
+npm i @capcitor-community/capacitor-googlemaps-native @capacitor/geolocation
+npm i @capcitor-community/capacitor-googlemaps-native
+npm i @capacitor-community/capacitor-googlemaps-native @capacitor/geolocation
+npm i @capacitor-community/capacitor-googlemaps-native
+npm install @capacitor/google-maps
+history | grep npm
+npm install @capacitor/google-maps
+npm remove @capacitor-community/capacitor-googlemaps-native
+npm install -D sass-loader sass
+# Free icons styles\nnpm i --save @fortawesome/free-solid-svg-icons\nnpm i --save @fortawesome/free-regular-svg-icons\nnpm i --save @fortawesome/free-brands-svg-icons\n
+npm view pinya
+npm view pinia
+npm uninstall webpack –save-dev
+npm init -y
+npm i -D webpack webpack-cli
+npm install
+npm run build
+npm run build
+npm i uuid
+npm run build
+npm remove uuid
+npm run build
+npm i -D sass style-loader css-loader sass-loader
+npm run build
+npm i -D html-webpack-plugin
+npm run build
+npm run dev
+npm build
+npm run build
+npm run dev
+npm run build
+npm run dev
+npm i -D bable-loader @babel/core @babel/present-env
+npm i -D babel-loader @babel/core @babel/present-env
+npm i -D babel-loader @babel/core @babel/preset-env
+npm run build
+npm run dev
+npm run build
+npm run dev
+npm i axios
+npm run dev
+npm i -D webpack-bundle-analyzer
+npm run build
+npm run build
+npm i -D @babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react @babel/runtime babel-eslint babel-loader
+npm run build
+npm i -D react react-dom
+npm i -D react react-dom
+npm run build
+npm i semantic-ui-react
+npm run build
+npm run build-prod
+npm run build-prod
+npm -D aggresive-splitting-plugin
+npm run build-prod
+npm run build-prod
+npm run build-prod
+npm install
+npm install
+npm run build-prod
+npm list --dev t
+npm list --dev
+npm run build-prod
+npm run build-prod
+npm install 
+npm run build-prod
+npm run build-prod
+npm run build-prod
+npm i --save-dev tailwindcss
+npm i --save-dev tailwindcss@latest
+npm run build-prod
+npm i --save-dev html-webpack-plugin\n
+npm run build-prod
+npm install webpack-bundle-analyzer --save-dev
+npm run build-prod
+npm install
+npm run build-prod
+npm install -D tailwindcss postcss autoprefixer
+npm run build-prod
+npm i -D postcss-loader
+npm run build-prod
+npm init vit cool-app
+npm init vite cool-app
+npm install 
+npm run dev
+npm i -D vite @vitejs/plugin-react-refresh
+npm i -D sass
+npm run vite-build
+npm install
+npm run vite-build
+npm run dev
+npm install
+npm run dev
+npm run dev
+npm init
+npm next dev
+npm i vite @vitejs/plugin-react @types/node
+npm run dev
+npm install -D tailwindcss postcss autoprefixer
+npm run dev
+npm i uid
+npm i uuid
+npm remove uid
+npm run dev
+npm i -D vite @vitejs/plugin-react-refresh @types/node @vitejs/plugin-react
+npm init -y
+npm i -D vite @vitejs/plugin-react-refresh @types/node @vitejs/plugin-react
+npm i
+npm run dev
+npm create vite@latest my-project -- --template react
+npm i
+npm install -D tailwindcss postcss autoprefixer
+npm run dev
+npm run dev
+npm run build
+npm run dev
+npm run dev
+npm create vite@latest quoter-de-vite -- --template react
+npm install -D tailwindcss postcss autoprefixer
+npm install
+npm run dev
+touch tailwind.config.js\nnpm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for esbuild-linux-riscv64@0.14.54: wanted {"os":"linux","arch":"riscv64"} (current: {"os":"darwin","arch":"x64"})\nnpm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for esbuild-linux-riscv64@0.14.54: wanted {"os":"linux","arch":"riscv64"} (current: {"os":"darwin","arch":"x64"})
+npm run dev
+npm run build
+npm run dev
+npm run dev
+npm run dev
+npm run dev
+npm run dev
+npm i -D vite-plugin-html-template
+npm run dev
+history | grep npm
+npm create vite@latest quoter-- --template vue
+npm create vite@latest quoter -- --template vue
+npm run dev
+npm -g vite-cli
+npm create vite@latest
+npm install
+npm run dev
+npm run build
+npm run build-prod
+npm run build-prod
+npm run build-prod
+npm run serve
+npm install tailwindcss
+npm i -D sass-loader
+npm i -D sass
+npm i -D vue-style-loader
+npm i -D css-loader
+npm install --save-dev node-sass
+npm run serve
+npm install --save @icon/ionicons
+npm run serve
+npm install @capacitor/browser
+npm run serve
+npm run serve
+npm run serve
+npm install @capacitor/geolocation
+npm i @capacitor-community/capacitor-googlemaps-native
+npm i -D @vitejs/plugin-vue
+npm run build
+npm i vue@latest
+npm run build
+npm i pinia @mdi/js chart.js numeral @tailwindcss/line-clamp -D
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run dev
+npm i pinia
+npm i vue-router
+npm i -D tailwindcss prettier autoprefixer
+npm run build
+npm i -D postcss-import
+npm run build
+npm i
+./vendor/bin/sail npm install & npm run dev
+./vendor/bin/sail npm install
+npm install
+./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run dev
+npm i @binance-chain/javascript-sdk
+npm init -y
+npm i @binance-chain/javascript-sdk --no-optional
+npm install dotenv --save
+npm run dev
+./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run dev
+npm init -y
+npm i crypto
+npm install
+npm run start
+npm i --save-dev nodemon
+npm run build
+npm run start:prod
+npm run start:debug
+npm run test
+npm run test:e2e
+npm i --save class-validator class-transformer @nestjs/swagger @nestjs/typeorm
+npm run db:migration:generate test
+npm run db:migration:run
+npm run db:migration:run test
+npm run db:migration:run "test"
+npm run build
+npm run format
+npm run db:migration:run
+npm run test
+npm run test:e2e
+npm run test:cov
+npm run db:migration:generate test
+npm run typeorm migration:create test
+npm run db:migration:generate test
+npm run typeorm migration:create test
+npm run typeorm migration:create migrations/test 
+npm run typeorm migration:create migrations test 
+npm install --save @nestjs/typeorm typeorm
+npm install --save swagger-ui-express @nestjs/swagger
+npm init -y
+npm i express cors --save
+npm i express cors -D @types/express @types/cors
+npm i express cors -D typescript
+npm i express cors -D nodemon ts-node
+npm start
+npm i typescript -g
+npm start
+npm install typeform --save
+npm install reflect-metadata --save
+npm install @types/node -D
+npm install mysql --save
+npm install mysql2 --save
+npm remove mysql
+npm install typeorm --save
+npm remove typeform
+npm i express  @types/express --save
+npm install @types/cors --save
+npm i bcrypt.js -D
+npm i bcryptjs -save
+npm i @types/bcryptjs -D
+npm install config --save
+npm i --save cors express 
+npm i
+npm i -D @types/config
+history | grep npm i
+history | grep npm

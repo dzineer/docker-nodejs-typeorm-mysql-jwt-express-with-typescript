@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+  db:
+    # platform: linux/x86_64 // if you are using an m1 chip mac
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: ambassador
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - "33066:3306"
