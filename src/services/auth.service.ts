@@ -31,7 +31,7 @@ export const getAuthenticatedUser = async (jwt: string, userType: string) => {
         return false
     }
 
-    const { password, ...user} = await getUserById( payload.id )
+    const user = await getUserById( payload.id )
 
     return user;
 }

@@ -60,10 +60,10 @@ export const authenticatedUser =  async (req: Request, res: Response) => {
         })
     }
     catch (err) {
-        return res.status(400).send({
-            status: 200,
+        return res.status(401).send({
+            status: 401,
             data: {
-                message: 'unauthenticated user'
+                message: 'unauthenticated'
             }
         })
     }
