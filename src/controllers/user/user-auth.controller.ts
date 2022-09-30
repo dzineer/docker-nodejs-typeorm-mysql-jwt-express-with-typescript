@@ -48,26 +48,12 @@ export const login =  async (req: Request, res: Response) => {
 }
 
 export const authenticatedUser =  async (req: Request, res: Response) => {
-    try {
-        const jwt = req.cookies.jwt;
-        const user = await getAuthenticatedUser(jwt, 'BasicUser')
-
-        return res.status(400).send({
-            status: 200,
-            data: {
-                user
-            }
-        })
-    }
-    catch (err) {
-        return res.status(401).send({
-            status: 401,
-            data: {
-                message: 'unauthenticated'
-            }
-        })
-    }
-
+    return res.status(200).send({
+        status: 200,
+        data: {
+            user: req["user"]
+        }
+    })
 }
 
 export const registerUser = async (req: Request, res: Response) => {
