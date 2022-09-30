@@ -314,7 +314,7 @@ src/controllers/user/user-auth.controller.ts
 
 ```js
 import {Request, Response} from 'express';
-import {createUser, getUserById, getUserByType} from '../../services/user.service';
+import {createUser, getUserWithIdPassword} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -325,7 +325,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 export const login =  async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
-    const user = await getUserByType(email, 1)
+    const user = await getUserWithIdPassword(email, 1)
 
     if (!user) {
         return res.status(400).send({
@@ -363,30 +363,16 @@ export const login =  async (req: Request, res: Response) => {
 }
 
 export const authenticatedUser =  async (req: Request, res: Response) => {
-    try {
-        const jwt = req.cookies.jwt;
-        const user = await getAuthenticatedUser(jwt, 'BasicUser')
-
-        return res.status(400).send({
-            status: 200,
-            data: {
-                user
-            }
-        })
-    }
-    catch (err) {
-        return res.status(400).send({
-            status: 200,
-            data: {
-                message: 'unauthenticated user'
-            }
-        })
-    }
-
+    return res.status(200).send({
+        status: 200,
+        data: {
+            user: req["user"]
+        }
+    })
 }
 
 export const registerUser = async (req: Request, res: Response) => {
-    const { first_name, last_name, email, password, password_confirm } = req.body;
+    const { password, password_confirm, email, ...body } = req.body;
 
     if (password !== password_confirm) {
         return res.status(400).send({
@@ -396,8 +382,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     try {
         const newUser = await createUser({
-            first_name,
-            last_name,
+            ...body,
             email: email.toLowerCase(),
             password: await bcrypt.hash(password, 10),
             is_ambassador: true
@@ -458,7 +443,7 @@ src/controllers/admin/admin-auth.controller.ts
 
 ```js
 import {Request, Response} from 'express';
-import {createUser, getUserByType} from '../../services/user.service';
+import {createUser, getUserWithIdPassword} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -469,7 +454,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 export const login =  async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
-    const user = await getUserByType(email, 1)
+    const user = await getUserWithIdPassword(email, 1)
 
     if (!user) {
         return res.status(400).send({
@@ -507,30 +492,16 @@ export const login =  async (req: Request, res: Response) => {
 }
 
 export const authenticatedUser =  async (req: Request, res: Response) => {
-    try {
-        const jwt = req.cookies.jwt;
-        const user = await getAuthenticatedUser(jwt, 'AdminUser')
-
-        return res.status(400).send({
-            status: 200,
-            data: {
-                user
-            }
-        })
-    }
-    catch (err) {
-        return res.status(400).send({
-            status: 200,
-            data: {
-                message: 'unauthenticated user'
-            }
-        })
-    }
-
+    return res.status(400).send({
+        status: 200,
+        data: {
+            user: req["user"]
+        }
+    })
 }
 
 export const registerUser = async (req: Request, res: Response) => {
-    const { first_name, last_name, email, password, password_confirm } = req.body;
+    const { password, password_confirm, email, ...body } = req.body;
 
     if (password !== password_confirm) {
         return res.status(400).send({
@@ -540,8 +511,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     try {
         const newUser = await createUser({
-            first_name,
-            last_name,
+            ...body,
             email: email.toLowerCase(),
             password: await bcrypt.hash(password, 10),
             is_ambassador: true
@@ -579,11 +549,87 @@ export const logout =  async (req: Request, res: Response) => {
     })
 }
 
-export const UserAuthController = {
+export const AdminAuthController = {
     registerUser,
     authenticatedUser,
     login,
     logout
+}
+```
+
+
+
+Route Middleware
+
+**Admin Auth Middleware**
+
+*dependencies*
+
+| Module                          | Description                    |      |
+| ------------------------------- | ------------------------------ | ---- |
+| NextFunction, Request, Response | From the express package       |      |
+| getAuthenticatedUser            | from src/services/auth.service |      |
+
+src/middleware/auth-admin.middleware.ts
+
+
+```js
+import {NextFunction, Request, Response} from "express";
+import {getAuthenticatedUser} from "../services/auth.service";
+
+export const adminAuthMiddleware =  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const jwt = req.cookies.jwt;
+        const user = await getAuthenticatedUser(jwt, 'AdminUser')
+        req["user"] = user;
+        next()
+    }
+    catch (err) {
+        return res.status(401).send({
+            status: 401,
+            data: {
+                message: 'unauthenticated'
+            }
+        })
+    }
+
+}
+```
+
+
+
+**Basic User Auth Middleware**
+
+*dependencies*
+
+| Module                          | Description                    |      |
+| ------------------------------- | ------------------------------ | ---- |
+| NextFunction, Request, Response | From the express package       |      |
+| getAuthenticatedUser            | from src/services/auth.service |      |
+
+src/middleware/auth-admin.middleware.ts
+
+
+```js
+import {NextFunction, Request, Response} from "express";
+import {getAuthenticatedUser} from "../services/auth.service";
+
+export const adminAuthMiddleware =  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const jwt = req.cookies.jwt;
+        const user = await getAuthenticatedUser(jwt, 'BasicUser')
+        req["user"] = user;
+        next()
+    }
+    catch (err) {
+        return res.status(401).send({
+            status: 401,
+            data: {
+                message: 'unauthenticated'
+            }
+        })
+    }
+
 }
 ```
 
@@ -601,6 +647,7 @@ Our Routes
 | ------------------- | ------------------------------------------------ | ---- |
 | Router              | From the express package                         |      |
 | AdminAuthController | from src/controllers/admin/admin-auth.controller |      |
+| adminAuthMiddleware | from src/middleware/admin-auth.middleware        |      |
 
 src/admin-user-routes.ts
 
@@ -608,12 +655,13 @@ src/admin-user-routes.ts
 ```js
 import {Router} from "express";
 import { AdminAuthController } from "../controllers/admin/admin-auth.controller";
+import {adminAuthMiddleware} from "../middleware/admin-auth.middleware";
 
 export const adminRoutes = (router: Router) => {
     router.post('/api/admin/register', AdminAuthController.registerUser)
     router.post('/api/admin/login', AdminAuthController.login)
-    router.post('/api/user/logout', UserAuthController.logout)
-    router.get('/api/admin/authenticated-user', AdminAuthController.authenticatedUser)
+    router.post('/api/user/logout', adminAuthMiddleware, AdminAuthController.logout)
+    router.get('/api/admin', adminAuthMiddleware, AdminAuthController.authenticatedUser)
 }
 ```
 
@@ -623,10 +671,11 @@ export const adminRoutes = (router: Router) => {
 
 *dependencies*
 
-| Module             | Description                                    |      |
-| ------------------ | ---------------------------------------------- | ---- |
-| Router             | From the express package                       |      |
-| UserAuthController | from src/controllers/user/user-auth.controller |      |
+| Module              | Description                                    |      |
+| ------------------- | ---------------------------------------------- | ---- |
+| Router              | from the express package                       |      |
+| UserAuthController  | from src/controllers/user/user-auth.controller |      |
+| adminAuthMiddleware | from src/middleware/user-auth.middleware       |      |
 
 src/basic-user-routes.ts
 
@@ -634,12 +683,13 @@ src/basic-user-routes.ts
 ```js
 import {Router} from "express";
 import { UserAuthController } from "../controllers/user/user-auth.controller";
+import {userAuthhMiddleware} from "../middleware/user-auth.middleware";
 
 export const basicUserRoutes = (router: Router) => {
     router.post('/api/user/register', UserAuthController.registerUser )
     router.post('/api/user/login', UserAuthController.login)
-    router.post('/api/user/logout', UserAuthController.logout)
-    router.get('/api/user/authenticated-user', UserAuthController.authenticatedUser)
+    router.post('/api/user/logout', userAuthhMiddleware, UserAuthController.logout)
+    router.get('/api/user', userAuthhMiddleware, UserAuthController.authenticatedUser)
 }
 ```
 
@@ -705,7 +755,6 @@ AppDataSource.initialize().then(async () => {
 }).catch((error) => console.log(error));
 
 ```
-
 
 
 
