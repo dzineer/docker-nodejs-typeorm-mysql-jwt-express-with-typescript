@@ -312,12 +312,12 @@ Auth Controllers
 
 *dependencies*
 
-| Module                                 | Description                    |      |
-| -------------------------------------- | ------------------------------ | ---- |
-| Request, Response                      | From the express package       |      |
-| createUser, getUserById, getUserByType | from src/services/user.service |      |
-| bcryptjs                               | Form bcryptjs                  |      |
-| genUserToken, getAuthenticatedUser     |                                |      |
+| Module                                                     | Description                    |      |
+| ---------------------------------------------------------- | ------------------------------ | ---- |
+| Request, Response                                          | From the express package       |      |
+| createUser, getUserById, getUserWithIdPassword, updateUser | from src/services/user.service |      |
+| bcryptjs                                                   | Form bcryptjs                  |      |
+| genUserToken, getAuthenticatedUser                         |                                |      |
 
 src/controllers/user/user-auth.controller.ts
 
@@ -456,18 +456,18 @@ export const UserAuthController = {
 
 *dependencies*
 
-| Module                             | Description                    |      |
-| ---------------------------------- | ------------------------------ | ---- |
-| Request, Response                  | From the express package       |      |
-| createUser, getUserByType          | from src/services/user.service |      |
-| bcryptjs                           | Form bcryptjs                  |      |
-| genUserToken, getAuthenticatedUser |                                |      |
+| Module                                                     | Description                    |      |
+| ---------------------------------------------------------- | ------------------------------ | ---- |
+| Request, Response                                          | From the express package       |      |
+| createUser, getUserById, getUserWithIdPassword, updateUser | from src/services/user.service |      |
+| bcryptjs                                                   | Form bcryptjs                  |      |
+| genUserToken, getAuthenticatedUser                         |                                |      |
 
 src/controllers/admin/admin-auth.controller.ts
 
 ```js
 import {Request, Response} from 'express';
-import {createUser, getUserWithIdPassword} from '../../services/user.service';
+import {createUser, getUserById, getUserWithIdPassword, updateUser} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -573,11 +573,26 @@ export const logout =  async (req: Request, res: Response) => {
     })
 }
 
+export const updateInfo =  async (req: Request, res: Response) => {
+    const userInfo = req['user'];
+    await updateUser(userInfo.id, {
+        ...req.body
+    })
+    const user = await  getUserById(userInfo.id)
+    return res.status(400).send({
+        status: 200,
+        data: {
+            user,
+        }
+    })
+}
+
 export const AdminAuthController = {
     registerUser,
     authenticatedUser,
     login,
-    logout
+    logout,
+    updateInfo
 }
 ```
 
@@ -680,12 +695,14 @@ src/admin-user-routes.ts
 import {Router} from "express";
 import { AdminAuthController } from "../controllers/admin/admin-auth.controller";
 import {adminAuthMiddleware} from "../middleware/admin-auth.middleware";
+import {userAuthMiddleware} from "../middleware/user-auth.middleware";
 
 export const adminRoutes = (router: Router) => {
     router.post('/api/admin/register', AdminAuthController.registerUser)
     router.post('/api/admin/login', AdminAuthController.login)
     router.post('/api/user/logout', adminAuthMiddleware, AdminAuthController.logout)
     router.get('/api/admin', adminAuthMiddleware, AdminAuthController.authenticatedUser)
+    router.put('/api/user/info', userAuthMiddleware, AdminAuthController.updateInfo)
 }
 ```
 
@@ -706,14 +723,15 @@ src/basic-user-routes.ts
 
 ```js
 import {Router} from "express";
-import { UserAuthController } from "../controllers/user/user-auth.controller";
-import {userAuthhMiddleware} from "../middleware/user-auth.middleware";
+import {updateInfo, UserAuthController} from "../controllers/user/user-auth.controller";
+import {userAuthMiddleware} from "../middleware/user-auth.middleware";
 
 export const basicUserRoutes = (router: Router) => {
     router.post('/api/user/register', UserAuthController.registerUser )
     router.post('/api/user/login', UserAuthController.login)
-    router.post('/api/user/logout', userAuthhMiddleware, UserAuthController.logout)
-    router.get('/api/user', userAuthhMiddleware, UserAuthController.authenticatedUser)
+    router.post('/api/user/logout', userAuthMiddleware, UserAuthController.logout)
+    router.get('/api/user', userAuthMiddleware, UserAuthController.authenticatedUser)
+    router.put('/api/user/info', userAuthMiddleware, UserAuthController.updateInfo)
 }
 ```
 
