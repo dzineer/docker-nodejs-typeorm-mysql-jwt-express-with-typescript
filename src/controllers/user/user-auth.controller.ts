@@ -71,7 +71,7 @@ export const authenticatedUser =  async (req: Request, res: Response) => {
 }
 
 export const registerUser = async (req: Request, res: Response) => {
-    const { first_name, last_name, email, password, password_confirm } = req.body;
+    const { password, password_confirm, email, ...body } = req.body;
 
     if (password !== password_confirm) {
         return res.status(400).send({
@@ -81,8 +81,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     try {
         const newUser = await createUser({
-            first_name,
-            last_name,
+            ...body,
             email: email.toLowerCase(),
             password: await bcrypt.hash(password, 10),
             is_ambassador: true
