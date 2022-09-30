@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {createUser, getUserByType} from '../../services/user.service';
+import {createUser, getUserWithIdPassword} from '../../services/user.service';
 import { genUserToken, getAuthenticatedUser } from '../../services/auth.service';
 
 import * as bcrypt from 'bcryptjs';
@@ -10,7 +10,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 export const login =  async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
-    const user = await getUserByType(email, 1)
+    const user = await getUserWithIdPassword(email, 1)
 
     if (!user) {
         return res.status(400).send({
@@ -60,10 +60,10 @@ export const authenticatedUser =  async (req: Request, res: Response) => {
         })
     }
     catch (err) {
-        return res.status(400).send({
-            status: 200,
+        return res.status(401).send({
+            status: 401,
             data: {
-                message: 'unauthenticated user'
+                message: 'unauthenticated'
             }
         })
     }
@@ -71,7 +71,7 @@ export const authenticatedUser =  async (req: Request, res: Response) => {
 }
 
 export const registerUser = async (req: Request, res: Response) => {
-    const { first_name, last_name, email, password, password_confirm } = req.body;
+    const { password, password_confirm, email, ...body } = req.body;
 
     if (password !== password_confirm) {
         return res.status(400).send({
@@ -81,8 +81,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     try {
         const newUser = await createUser({
-            first_name,
-            last_name,
+            ...body,
             email: email.toLowerCase(),
             password: await bcrypt.hash(password, 10),
             is_ambassador: true
@@ -120,7 +119,7 @@ export const logout =  async (req: Request, res: Response) => {
     })
 }
 
-export const UserAuthController = {
+export const AdminAuthController = {
     registerUser,
     authenticatedUser,
     login,

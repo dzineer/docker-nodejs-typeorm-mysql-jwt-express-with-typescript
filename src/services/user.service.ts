@@ -9,6 +9,18 @@ export const createUser = async (input: Partial<User>) => {
         userRepository.create(input)
     )
 }
+
+export const getUserWithIdPassword = async (emailAddress: string, isAmbassador: number ) => {
+    const findOneOptions: FindOneOptions = {
+        where: {
+            email: emailAddress,
+            is_ambassador: isAmbassador
+        },
+        select: ["id", "password"]
+    }
+    return await userRepository.findOne(findOneOptions);
+}
+
 export const getUserByType = async (emailAddress: string, isAmbassador: number ) => {
     const findOneOptions: FindOneOptions = {
         where: {
