@@ -2,15 +2,17 @@ import {JwtHeader, JwtPayload, sign, verify} from "jsonwebtoken";
 import {User} from "../entities/user.entity";
 import {getUserById} from "./user.service";
 
-export const genUserToken = (user: User, userType: string) => {
+export const genUserToken = (user: User, userType: string, scope: string) => {
     if (userType === 'BasicUser') {
         return sign({
-            id: user.id
+            id: user.id,
+            scope
         }, process.env.BASIC_USER_JWT_SECRET_KEY)
     }
     else if (userType === 'AdminUser') {
         return sign({
-            id: user.id
+            id: user.id,
+            scope,
         }, process.env.ADMIN_USER_JWT_SECRET_KEY)
     }
 

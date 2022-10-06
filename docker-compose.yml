@@ -6,8 +6,12 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+      - ./etc/logrotate.d:/etc/logrotate.d
     depends_on:
       - db
+      - redis
+      - mailhog
+
   db:
     # platform: linux/x86_64 // if you are using an m1 chip mac
     image: mysql:8
@@ -19,3 +23,14 @@ services:
       - .dbdata:/var/lib/mysql
     ports:
       - "33066:3306"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    logging:
+      driver: none  # disable saving logs
+    ports:
+      - '${FORWARD_MAILHOG_PORT}:1025' # smtp server
+      - '${FORWARD_MAILHOG_DASHBOARD_PORT}:8025' # web ui

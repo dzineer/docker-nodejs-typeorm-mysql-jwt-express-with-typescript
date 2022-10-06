@@ -5,16 +5,20 @@
    "main": "index.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "ts-node src/index.ts",
+      "start:ts-node": "ts-node src/index.ts",
+      "start": "nodemon",
       "typeorm": "typeorm-ts-node-commonjs",
       "seed:ambassadors": "ts-node src/seeder/ambassador.seeder.ts",
+      "seed:products": "ts-node src/seeder/product.seeder.ts",
+      "seed:links": "ts-node src/seeder/link.seeder.ts",
+      "seed:orders": "ts-node src/seeder/order.seeder.ts",
+      "update:rankings": "ts-node src/seeder/ranking.seeder.ts",
       "backend:shell": "docker-compose exec backend bash"
    },
    "keywords": [],
    "author": "",
    "license": "ISC",
    "dependencies": {
-      "@faker-js/faker": "^7.5.0",
       "bcryptjs": "^2.4.3",
       "config": "^3.3.8",
       "cookie-parser": "^1.4.6",
@@ -24,12 +28,17 @@
       "i": "^0.3.7",
       "jsonwebtoken": "^8.5.1",
       "mysql2": "^2.3.3",
+      "nodemailer": "^6.8.0",
       "npm": "^8.19.2",
       "pg": "^8.4.0",
+      "redis": "^4.3.1",
       "reflect-metadata": "^0.1.13",
+      "stripe": "^10.12.0",
       "typeorm": "0.3.10"
    },
    "devDependencies": {
+      "@faker-js/faker": "^7.5.0",
+      "@stripe/stripe-js": "^1.38.1",
       "@types/bcryptjs": "^2.4.2",
       "@types/config": "^3.3.0",
       "@types/cookie-parser": "^1.4.3",
@@ -39,8 +48,11 @@
       "@types/faker": "^6.6.9",
       "@types/jsonwebtoken": "^8.5.9",
       "@types/node": "^16.11.10",
+      "@types/nodemailer": "^6.4.6",
+      "@types/winston": "^2.4.4",
       "nodemon": "^2.0.20",
       "ts-node": "10.7.0",
-      "typescript": "4.5.2"
+      "typescript": "4.5.2",
+      "vue-cli-plugin-vuetify": "~2.5.8"
    }
 }

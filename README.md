@@ -842,14 +842,15 @@ import { Request, Response } from "express"
 import config from 'config';
 import { AppDataSource } from './utils/data-source'
 import * as cors from 'cors';
-/**
-* Routes
-*/
+
 import { adminRoutes } from "./routes/admin-user-routes";
 import { basicUserRoutes } from "./routes/basic-user-routes";
 
 import * as dotenv from 'dotenv'
 import * as cookieParser from 'cookie-parser'
+
+import responsesLogger from "./logger/responses-logger";
+import requestsLogger from "./logger/requests-logger";
 
 dotenv.config()
 
@@ -868,6 +869,72 @@ AppDataSource.initialize().then(async () => {
         })
     );
 
+    app.use(function (req, res, next) {
+
+        console.log(`we are in our middleware`)
+
+        const { rawHeaders, headers, httpVersion, method, socket, url } = req;
+        const { remoteAddress, remoteFamily } = socket;
+
+        let payload = {};
+
+        if (method === 'GET') {
+            payload = { query: req.query, params: req.params }
+        } else if (method === 'POST' || method === 'PUT') {
+            payload = { body: req.body, params: req.params }
+        }
+
+        const data = JSON.stringify({
+            //    headers,
+            //    rawHeaders,
+            //    httpVersion,
+            request: method + " : " + url,
+            //     remoteAddress,
+            //     remoteFamily,
+            payload,
+            timestamp: new Date().getTime(),
+        })
+
+        const out = "[ Route: " + method + " : " + url + " payload: " + JSON.stringify(payload) + " ]"
+
+        console.log("\n\nRoute");
+        requestsLogger.info(out);
+        //routesLogger.info(data);
+        console.log(data);
+        console.log("\n\n/Route");
+
+        next();
+    });
+
+    function logResponseBody(req, res, next) {
+        const oldWrite = res.write,
+            oldEnd = res.end;
+
+        const chunks = [];
+
+        res.write = function (chunk) {
+            chunks.push(chunk);
+
+            return oldWrite.apply(res, arguments);
+        };
+
+        res.end = function (chunk) {
+            if (chunk)
+                chunks.push(chunk);
+
+            const body = Buffer.concat(chunks).toString('utf8');
+
+            responsesLogger.info(JSON.stringify({route: req.path, response: body}));
+            console.log(req.path, body);
+
+            oldEnd.apply(res, arguments);
+        };
+
+        next();
+    }
+
+    app.use(logResponseBody);
+
     adminRoutes(app)
     basicUserRoutes(app)
 
@@ -876,7 +943,6 @@ AppDataSource.initialize().then(async () => {
     })
 
 }).catch((error) => console.log(error));
-
 ```
 
 

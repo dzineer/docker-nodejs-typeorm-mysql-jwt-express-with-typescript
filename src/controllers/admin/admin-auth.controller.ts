@@ -20,23 +20,17 @@ export const login =  async (req: Request, res: Response) => {
 
     if (!user) {
         return res.status(400).send({
-            status: 400,
-            data: {
-                message: "Invalid credentials!"
-            }
+            message: "Invalid credentials!"
         })
     }
 
     if (!await bcrypt.compare(password, user.password)) {
         return res.status(400).send({
-            status: 400,
-            data: {
-                message: "Invalid credentials!"
-            }
+            message: "Invalid credentials!"
         })
     }
 
-    const token = genUserToken(user, "AdminUser")
+    const token = genUserToken(user, "AdminUser", 'admin')
 
     res.cookie("jwt", token,
         {
@@ -45,21 +39,13 @@ export const login =  async (req: Request, res: Response) => {
         })
 
     return res.status(200).send({
-        status: 200,
-        data: {
-            message: "Successfully logged in!",
-        }
+        message: "Successfully logged in!",
     })
 
 }
 
 export const authenticatedUser =  async (req: Request, res: Response) => {
-    return res.status(200).send({
-        status: 200,
-        data: {
-            user: req["user"]
-        }
-    })
+    return res.status(200).send(req["user"])
 }
 
 export const registerUser = async (req: Request, res: Response) => {
@@ -84,17 +70,11 @@ export const registerUser = async (req: Request, res: Response) => {
     catch (err: any) {
         if (err.errno === 1062) {
             return res.status(400).send({
-                data: {
-                    message: 'User with that email already exist',
-                },
-                status: 400
+                message: 'User with that email already exist',
             })
         } else {
             return res.status(400).send({
-                data: {
-                    message: 'Error: User was not created!',
-                },
-                status: 400
+                message: 'Error: User was not created!',
             })
         }
 
@@ -103,11 +83,8 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const logout =  async (req: Request, res: Response) => {
     res.cookie("jwt", "", { maxAge:0} )
-    return res.status(400).send({
-        status: 200,
-        data: {
-            message: "Successfully logged out!",
-        }
+    return res.status(200).send({
+        message: "Successfully logged out!",
     })
 }
 
@@ -117,11 +94,8 @@ export const updateInfo =  async (req: Request, res: Response) => {
         ...req.body
     })
     const user = await  getUserById(userInfo.id)
-    return res.status(400).send({
-        status: 200,
-        data: {
-            user,
-        }
+    return res.status(200).send({
+        user,
     })
 }
 
@@ -137,11 +111,8 @@ export const updatePassword =  async (req: Request, res: Response) => {
 
     await updateUserPassword(userInfo.id, password);
 
-    return res.status(400).send({
-        status: 200,
-        data: {
-            message: 'Password updated.',
-        }
+    return res.status(200).send({
+        message: 'Password updated.',
     })
 }
 
