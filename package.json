@@ -26,7 +26,6 @@
       "cookie-parser": "^1.4.6",
       "cors": "^2.8.5",
       "express": "^4.18.1",
-      "faker": "^5.5.3",
       "i": "^0.3.7",
       "jsonwebtoken": "^8.5.1",
       "mysql2": "^2.3.3",
@@ -35,7 +34,7 @@
       "pg": "^8.4.0",
       "redis": "^4.3.1",
       "reflect-metadata": "^0.1.13",
-      "stripe": "^10.12.0",
+      "stripe": "^10.13.0",
       "typeorm": "0.3.10"
    },
    "devDependencies": {
