@@ -10,9 +10,9 @@ export const adminRoutes = (router: Router) => {
     router.post('/api/admin/register', AdminAuthController.registerUser)
     router.post('/api/admin/login', AdminAuthController.login)
     router.post('/api/admin/logout', adminAuthMiddleware, AdminAuthController.logout)
-    router.get('/api/admin', adminAuthMiddleware, AdminAuthController.authenticatedUser)
-    router.put('/api/admin/info', adminAuthMiddleware, AdminAuthController.updateInfo)
-    router.put('/api/admin/password', adminAuthMiddleware, AdminAuthController.updatePassword)
+    router.get('/api/admin/user', adminAuthMiddleware, AdminAuthController.authenticatedUser)
+    router.put('/api/admin/users/info', adminAuthMiddleware, AdminAuthController.updateInfo)
+    router.put('/api/admin/users/password', adminAuthMiddleware, AdminAuthController.updatePassword)
     router.get('/api/admin/ambassadors', adminAuthMiddleware, UserController.ambassadors)
 
     router.get('/api/admin/products', adminAuthMiddleware, ProductController.index)
@@ -21,6 +21,6 @@ export const adminRoutes = (router: Router) => {
     router.put('/api/admin/products/:id', adminAuthMiddleware, ProductController.update)
     router.delete('/api/admin/products/:id', adminAuthMiddleware, ProductController.destroy)
 
-    router.get('/api/admin/users/:id/links', adminAuthMiddleware, LinkController.show)
+    router.get('/api/admin/users/:id/links', adminAuthMiddleware, LinkController.index)
     router.get('/api/admin/orders', adminAuthMiddleware, OrderController.index)
 }

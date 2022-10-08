@@ -9,10 +9,10 @@ AppDataSource.initialize().then(async () => {
     const orderRepository = AppDataSource.getRepository(Order)
     const orderItemRepository = AppDataSource.getRepository(OrderItem)
 
-    for(let i=0; i < 30; i++) {
+    for(let i=0; i <= 30; i++) {
 
         const order = await orderRepository.save({
-            user_id: randomInt(2, 31),
+            user_id: randomInt(2, 30),
             code: faker.random.alphaNumeric(6),
             ambassador_email: faker.internet.email(),
             first_name: faker.name.firstName(),
@@ -21,7 +21,7 @@ AppDataSource.initialize().then(async () => {
             complete: true
         })
 
-        for(let j=0; j < randomInt(1, 5); j++) {
+        for(let j=0; j < randomInt(2, 5); j++) {
             const orderItem = await  orderItemRepository.save({
                 order,
                 product_title: faker.commerce.productDescription(),

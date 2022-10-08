@@ -5,9 +5,11 @@
    "main": "index.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
+      "up": "docker-compose up",
       "start:ts-node": "ts-node src/index.ts",
       "start": "nodemon",
       "typeorm": "typeorm-ts-node-commonjs",
+      "seed:all": "ts-node src/seeder/all.seeder.ts",
       "seed:ambassadors": "ts-node src/seeder/ambassador.seeder.ts",
       "seed:products": "ts-node src/seeder/product.seeder.ts",
       "seed:links": "ts-node src/seeder/link.seeder.ts",

@@ -19,12 +19,7 @@ export const index =  async (req: Request, res: Response) => {
         order_items: order.order_items
     }));
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            orders: newOrders
-        }
-    })
+    return res.status(200).send(newOrders)
 }
 
 export const show =  async (req: Request, res: Response) => {

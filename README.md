@@ -996,3 +996,13 @@ AppDataSource.initialize().then(async () => {
 | seed:ambassadors | ts-node src/seeder/ambassador.seeder.ts |
 | backend:shell    | docker-compose exec backend bash        |
 
+```sql
+SET FOREIGN_KEY_CHECKS=0;  -- turn off foreign key checks
+TRUNCATE TABLE `order_item`;  -- truncate tables
+TRUNCATE TABLE `order`;
+TRUNCATE TABLE `link_products`;
+TRUNCATE TABLE `product`;
+TRUNCATE TABLE `link`;
+TRUNCATE TABLE `user`;
+SET FOREIGN_KEY_CHECKS=1;  -- turn on foreign key checks
+```

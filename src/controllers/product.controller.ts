@@ -4,24 +4,14 @@ import {createProduct, deleteProduct, getProductById, getProducts, updateProduct
 export const index =  async (req: Request, res: Response) => {
     const products = await getProducts(false, 'products')
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            products
-        }
-    })
+    return res.status(200).send(products)
 }
 
 export const show =  async (req: Request, res: Response) => {
     const { id } = req.params;
     const product = await getProductById( parseInt(id) )
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            product
-        }
-    })
+    return res.status(200).send(product)
 }
 
 export const destroy =  async (req: Request, res: Response) => {
@@ -29,10 +19,7 @@ export const destroy =  async (req: Request, res: Response) => {
     await deleteProduct(parseInt(id));
 
     return res.status(200).send({
-        status: 200,
-        data: {
-            message: "Product deleted successfully!"
-        }
+        message: "Product deleted successfully!"
     })
 }
 
@@ -43,14 +30,10 @@ export const store =  async (req: Request, res: Response) => {
         description,
         image,
         price
+
     })
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            product
-        }
-    })
+    return res.status(200).send(product)
 }
 
 export const update =  async (req: Request, res: Response) => {
@@ -58,10 +41,7 @@ export const update =  async (req: Request, res: Response) => {
     await updateProduct(parseInt(req.params.id), req.body)
 
     return res.status(200).send({
-        status: 200,
-        data: {
-            message: 'Product updated successfully!'
-        }
+        message: 'Product updated successfully!'
     })
 }
 

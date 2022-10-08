@@ -19,6 +19,16 @@ export const createLink = async (user: User, products: Product[]) => {
     )
 }
 
+export const getUserLinksOnly = async (user_id: number) => {
+    const foundUser = await getUserById(user_id);
+
+    return await linkRepository.find({
+        where: {
+            user: foundUser
+        },
+    })
+}
+
 export const getUserLinks = async (user_id: number) => {
     const foundUser = await getUserById(user_id);
 
@@ -30,8 +40,13 @@ export const getUserLinks = async (user_id: number) => {
     })
 }
 
-export const getLinks = async () => {
-    return await linkRepository.find();
+export const getLinks = async (user_id: number) => {
+    const findOneOptions: FindOneOptions = {
+        where: {
+            user_id
+        }
+    }
+    return await linkRepository.findOne(findOneOptions);
 }
 
 export const deleteLink = async (id: number) => {

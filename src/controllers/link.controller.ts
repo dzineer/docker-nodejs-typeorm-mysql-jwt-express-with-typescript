@@ -12,26 +12,34 @@ import {getUserProducts} from "../services/product.service";
 import {Product} from "../entities/product.entity";
 
 export const index =  async (req: Request, res: Response) => {
-    const links = await getLinks()
+    let links = await getUserLinks(parseInt(req.params.id))
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            links
-        }
+    const newLinks = links.map(link => {
+        const newLink = JSON.parse(JSON.stringify(link))
+        newLink.orders = link.orders.map(order => {
+            const newOrder = JSON.parse(JSON.stringify(order))
+            newOrder["total"] = order.total
+     //       console.log(`order ${o.id}: order.total: ${o.total}`)
+            return newOrder;
+        })
+
+        return newLink;
+
     })
+
+    console.info(`newLinks: `, newLinks)
+
+    // return res.status(200).send([])
+    return res.status(200).send(
+        newLinks
+    )
 }
 
 export const show =  async (req: Request, res: Response) => {
     const { code } = req.params;
     const link = await getLinkByCode(code)
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            link
-        }
-    })
+    return res.status(200).send(link)
 }
 
 
@@ -40,10 +48,7 @@ export const destroy =  async (req: Request, res: Response) => {
     await deleteLink(parseInt(id));
 
     return res.status(200).send({
-        status: 200,
-        data: {
-            message: "Link deleted successfully!"
-        }
+        message: "Link deleted successfully!"
     })
 }
 
@@ -60,12 +65,7 @@ export const store =  async (req: Request, res: Response) => {
         products
     )
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            link
-        }
-    })
+    return res.status(200).send(link)
 }
 
 export const userStats =  async (req: Request, res: Response) => {
@@ -81,12 +81,7 @@ export const userStats =  async (req: Request, res: Response) => {
         products
     )
 
-    return res.status(200).send({
-        status: 200,
-        data: {
-            link
-        }
-    })
+    return res.status(200).send(link)
 }
 
 export const update =  async (req: Request, res: Response) => {
@@ -94,10 +89,7 @@ export const update =  async (req: Request, res: Response) => {
     await updateLink(parseInt(req.params.id), req.body)
 
     return res.status(200).send({
-        status: 200,
-        data: {
-            message: 'Link updated successfully!'
-        }
+        message: 'Link updated successfully!'
     })
 }
 

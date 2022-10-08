@@ -2,7 +2,6 @@ import {AppDataSource} from '../utils/data-source';
 import {FindManyOptions, FindOneOptions} from "typeorm";
 import {Product} from "../entities/product.entity";
 import {getCached} from "./cache.service";
-import {debug} from "../index";
 import {User} from "../entities/user.entity";
 
 const productRepository = AppDataSource.getRepository(Product);
@@ -25,7 +24,7 @@ export const getUserProducts = async (user:User) =>  {
 }
 
 export const getProducts = async (useCache: boolean = false, type: string) => {
-    if (debug) {
+    if (process.env.DEBUG) {
         console.log(`getProducts(useCache:${useCache}, '${type}')`);
     }
 
@@ -39,7 +38,7 @@ export const getProducts = async (useCache: boolean = false, type: string) => {
 }
 
 export const searchProducts = async (s: string, useCache: boolean = false, type: string) => {
-    if (debug) {
+    if (process.env.DEBUG) {
         console.log(`getProducts(useCache:${useCache}, '${type}')`);
     }
 

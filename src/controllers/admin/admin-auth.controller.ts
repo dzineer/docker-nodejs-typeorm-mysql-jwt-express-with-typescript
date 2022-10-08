@@ -94,9 +94,7 @@ export const updateInfo =  async (req: Request, res: Response) => {
         ...req.body
     })
     const user = await  getUserById(userInfo.id)
-    return res.status(200).send({
-        user,
-    })
+    return res.status(200).send(user);
 }
 
 export const updatePassword =  async (req: Request, res: Response) => {
